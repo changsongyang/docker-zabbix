@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sv start mysql || exit 1
+mysqladmin --wait=5 ping
+
+source /etc/envvars
+env
+
+exec 2>&1
+chpst -u zabbix zabbix_server -f
