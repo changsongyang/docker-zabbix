@@ -6,5 +6,9 @@ mysqladmin --wait=5 ping
 source /etc/envvars
 env
 
+if [ -n "$ZABBIX_DB" ]; then
+  sed -i -e "s|# DBHost=localhost|DBHost=$ZABBIX_DB|" /usr/local/etc/zabbix_server.conf
+fi
+
 exec 2>&1
 chpst -u zabbix zabbix_server -f

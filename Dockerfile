@@ -53,9 +53,12 @@ RUN groupadd zabbix && \
 RUN mkdir -p /var/www && \
     cp -a /zabbix/frontends/php/* /var/www
 
+#Sensors
+RUN apt-get install -y lm-sensors
+
 #Config
-RUN cp /var/www/conf/zabbix.conf.php.example /var/www/conf/zabbix.conf.php && \
-    chown www-data:www-data /var/www/conf/zabbix.conf.php
+COPY zabbix.conf.php /var/www/conf/
+RUN  chown www-data:www-data /var/www/conf/zabbix.conf.php
 COPY default /etc/nginx/sites-enabled/ 
 COPY php.ini /etc/php5/fpm/php.ini
 
