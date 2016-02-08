@@ -1,3 +1,4 @@
 #!/bin/bash
+source helper
 
-docker build $@ -t zabbix . 
+docker build $@ -t ${IMAGE} . 
