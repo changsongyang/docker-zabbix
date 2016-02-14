@@ -8,6 +8,7 @@ env
 
 if [ -n "$ZABBIX_DB" ]; then
   sed -i -e "s|# DBHost=localhost|DBHost=$ZABBIX_DB|" /usr/local/etc/zabbix_server.conf
+  sed -i -e "s|\$DB\['SERVER'\].*|\$DB['SERVER']='$ZABBIX_DB';|" /var/www/conf/zabbix.conf.php
 fi
 
 exec 2>&1

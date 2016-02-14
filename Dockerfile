@@ -58,8 +58,8 @@ RUN mkdir -p /var/www && \
 RUN apt-get install -y lm-sensors
 
 #Config
-COPY zabbix.conf.php /var/www/conf/
-RUN  chown www-data:www-data /var/www/conf/zabbix.conf.php
+#COPY zabbix.conf.php /var/www/conf/
+RUN  cp /var/www/conf/zabbix.conf.php.example /var/www/conf/zabbix.conf.php
 COPY default /etc/nginx/sites-enabled/ 
 COPY php.ini /etc/php5/fpm/php.ini
 COPY zabbix_server.conf /usr/local/etc/
