@@ -56,6 +56,7 @@ RUN mkdir -p /var/www && \
 
 #Sensors
 RUN apt-get install -y lm-sensors
+RUN apt-get install -y fping
 
 #Config
 #COPY zabbix.conf.php /var/www/conf/
