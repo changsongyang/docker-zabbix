@@ -40,7 +40,7 @@ RUN apt-get install -y php5-fpm
 #RUN sed -i "s|;pm.max_requests = 500|pm.max_requests = 500|" /etc/php5/fpm/pool.d/www.conf
 
 #Zabbix
-RUN wget -O - http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Release%20Candidates/3.0.0rc2/zabbix-3.0.0rc2.tar.gz | tar zx
+RUN wget -O - http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.0/zabbix-3.0.0.tar.gz | tar zx
 RUN mv /zabbix* /zabbix
 
 RUN cd /zabbix && \
