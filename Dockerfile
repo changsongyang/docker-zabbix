@@ -1,18 +1,18 @@
 FROM ubuntu:14.04
- 
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update
+  
+ENV DEBIAN_FRONTEND=noninteractive \
+    LANG=en_US.UTF-8 \
+    TERM=xterm
 RUN locale-gen en_US en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV TERM xterm
 RUN echo "export PS1='\e[1;31m\]\u@\h:\w\\$\[\e[0m\] '" >> /root/.bashrc
+RUN apt-get update
 
-#Runit
+# Runit
 RUN apt-get install -y runit 
 CMD export > /etc/envvars && /usr/sbin/runsvdir-start
 RUN echo 'export > /etc/envvars' >> /root/.bashrc
 
-#Utilities
+# Utilities
 RUN apt-get install -y vim less net-tools inetutils-ping wget curl git telnet nmap socat dnsutils netcat tree htop unzip sudo software-properties-common jq psmisc
 
 RUN apt-get install -y build-essential
@@ -40,7 +40,7 @@ RUN apt-get install -y php5-fpm
 #RUN sed -i "s|;pm.max_requests = 500|pm.max_requests = 500|" /etc/php5/fpm/pool.d/www.conf
 
 #Zabbix
-RUN wget -O - http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.1/zabbix-3.0.1.tar.gz | tar zx
+RUN wget -O - http://downloads.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.2/zabbix-3.0.2.tar.gz | tar zx
 RUN mv /zabbix* /zabbix
 
 RUN cd /zabbix && \
@@ -75,6 +75,7 @@ RUN mysqld_safe & mysqladmin --wait=5 ping && \
     mysql -uzabbix zabbix < data.sql && \
     mysqladmin shutdown
 
-#Add runit services
+# Add runit services
 COPY sv /etc/service 
-
+ARG BUILD_INFO
+LABEL BUILD_INFO=$BUILD_INFO
